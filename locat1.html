@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page 2</title>
+</head>
+<body>
+   
+    <button onclick="copyToClipboard()">Copy</button>
+ <button onclick="openAndFocusNewPage()">Open the Map</a></button>
+
+
+ <form action="http://localhost/test/index.php" method="post">
+    <!-- Your form inputs go here -->
+    <input type="submit" value="Sent the location to Expert">
+</form>
+
+<form action="http://localhost/test/indexm.php" method="post">
+    <!-- Your form inputs go here -->
+    <input type="submit" value="Sent the location to  Mecanicien">
+</form>
+
+    <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var latitude = urlParams.get('latitude');
+        var longitude = urlParams.get('longitude');
+
+        // Display the GPS data on the page
+        document.write('<p>Latitude: ' + latitude + '</p>');
+        document.write('<p>Longitude: ' + longitude + '</p>');
+   
+
+        window.onload = function() {
+    var notification = localStorage.getItem('notification');
+    if (notification) {
+        alert(notification);
+        localStorage.removeItem('notification');
+        var redirect = localStorage.getItem('redirect');
+        if (redirect) {
+            localStorage.removeItem('redirect');
+            window.location.href = redirect;
+        }
+    }
+};
+
+        function openAndFocusNewPage() {
+    var newWindow = window.open('https://www.google.com/maps');
+    newWindow.focus();
+}
+
+    function copyToClipboard() {
+       // var input1 = document.getElementById('latitude');
+      //  var input2 = document.getElementById('longitude');
+     //   var text = input1.value + ' , ' + input2.value;
+        var text = latitude + ',' + longitude;
+    navigator.clipboard.writeText(text)
+        .then(() => {
+            console.log('Text copied to clipboard');
+        })
+        .catch((error) => {
+            console.error('Failed to copy text to clipboard: ', error);
+        });
+     /*   var copyInput = document.createElement('input');
+        copyInput.value = text;
+        document.body.appendChild(copyInput);
+        copyInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(copyInput);*/
+    }
+    </script>
+ 
+    
+<iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3314.932326755695!2d2.8640017090099557!3d33.814059430161905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDQ4JzUwLjYiTiAywrA1MSc1OS43IkU!5e0!3m2!1sen!2sdz!4v1705444133013!5m2!1sen!2sdz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+ </body>
+</html>
