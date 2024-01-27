@@ -12,7 +12,10 @@
   <div class="contrainer my-5">
     <h1>List of Notifications</h1>
     <br>
-    <table class="table">
+    <a class="btn btn-primary"  onclick='openAndFocusNewPage()'>Go to Map</a>
+    <br>
+
+    <table class="table" id="mytable">
         <thead>
             <tr>
 
@@ -53,8 +56,9 @@
             
                            
                             <td>  
-                                <a class='btn btn-primary btn-sm' onclick='copyToClipboard()'>Copy</a>
-                                <a class='btn btn-danger btn-sm' href='/test/delet.php'>Go to Map</a>
+                                <a class='btn btn-primary btn-sm' onclick='copyToClipboard(event)'>Copy</a>
+                                <a class='btn btn-info btn-sm' href='/test/index.php'>Sent the location to Expert</a>
+                                <a class='btn btn-info btn-sm' href='/test/indexm.php'>Sent the location to Mecanicien</a>
     
                             </td>
             </tr>";
@@ -64,7 +68,28 @@
      
         ?>
         <script>
-            function copyToClipboard() {
+
+   function copyToClipboard(event) {
+   
+            const table = document.getElementById('mytable');
+            const row = event.target.closest('tr');
+
+            const cell1 = row.cells[0];
+            const cell2 = row.cells[1];
+
+            const content = cell1.textContent + ',' + cell2.textContent;
+
+            const textarea = document.createElement('textarea');
+            textarea.value = content;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+        
+        }
+
+           /* function copyToClipboard() {
        // var input1 = document.getElementById('latitude');
       //  var input2 = document.getElementById('longitude');
      //   var text = input1.value + ' , ' + input2.value;
@@ -82,7 +107,12 @@
         copyInput.select();
         document.execCommand('copy');
         document.body.removeChild(copyInput);*/
-    }
+    //}
+
+    function openAndFocusNewPage() {
+    var newWindow = window.open('https://www.google.com/maps');
+    newWindow.focus();
+}
     </script>
         </tbody>
     </table>
